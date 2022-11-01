@@ -74,9 +74,6 @@ const COMPLETED_ATTR = 'completed';
 const LABEL_ATTR = 'label';
 
 /** @const {string} */
-const DONT_SET_HISTORY_ATTR = 'dsh';
-
-/** @const {string} */
 const ANIMATING_ATTR = 'animating';
 
 /** @const {string} */
