@@ -128,7 +128,7 @@ gulp.task('build:scss', () => {
 // build:css builds all the css files into the dist dir
 gulp.task('build:css', () => {
   const srcs = [
-    'app/elements/codelab-elements/*.css',
+    'app/elements/claat-public/*.css',
   ];
 
   return gulp.src(srcs, { base: 'app/' })
@@ -208,7 +208,7 @@ gulp.task('build:js', (callback) => {
 
 gulp.task('build:elements_js', () => {
   const srcs = [
-    'app/elements/codelab-elements/*.js'
+    'app/elements/claat-public/*.js'
   ];
 
   return gulp.src(srcs, { base: 'app/' })
@@ -251,7 +251,7 @@ gulp.task('minify:css', () => {
   const srcs = [
     'dist/**/*.css',
     '!dist/codelabs/**/*',
-    '!dist/elements/codelab-elements/*.css',
+    '!dist/elements/claat-public/*.css',
   ]
   return gulp.src(srcs, { base: 'dist/' })
     .pipe(postcss(opts.postcss()))
@@ -275,7 +275,7 @@ gulp.task('minify:js', () => {
   const srcs = [
     'dist/**/*.js',
     '!dist/codelabs/**/*',
-    '!dist/elements/codelab-elements/*.js',
+    '!dist/elements/claat-public/*.js',
   ]
   return gulp.src(srcs, { base: 'dist/' })
     .pipe(uglify(opts.uglify()))
