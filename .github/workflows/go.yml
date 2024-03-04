@@ -18,16 +18,16 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@37335c7bb261b353407cff977110895fa0b4f7d8
       with:
-        go-version: 1.16
+        go-version: 1.18
 
     - name: Vet
       working-directory: claat
-      run: go vet -exec sudo ./...
+      run: go vet ./...
 
     - name: Build
       working-directory: claat
-      run: go build -exec sudo -v ./...
+      run: go build -v ./...
 
     - name: Test
       working-directory: claat
-      run: go test -exec sudo -v ./...
+      run: go test -v ./...
