@@ -1,0 +1,28 @@
+name: Build codelab elements
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ min ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.18
+
+    - name: Set up node
+      uses: actions/setup-node@v4
+
+    - name: Build
+      run: |
+        npm install
+        npm run build
