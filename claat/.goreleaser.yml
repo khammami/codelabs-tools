@@ -1,0 +1,51 @@
+version: 2
+
+project_name: claat
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: claat
+    dir: .
+    binary: claat
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X main.version={{ .Version }}-{{ .Date }}-{{ .ShortCommit }}
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+      - "386"
+    ignore:
+      - goos: darwin
+        goarch: "386"
+
+archives:
+  - id: claat
+    format: binary
+    name_template: "claat-{{ .Os }}-{{ .Arch }}"
+
+checksum:
+  name_template: "sha256sums.txt"
+  algorithm: sha256
+
+release:
+  github:
+    owner: googlecodelabs
+    name: tools
+  draft: false
+  prerelease: auto
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
