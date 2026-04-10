@@ -37,11 +37,6 @@ $(OUTDIR)/claat: $(SRCS) VERSION
 	go build -o $@ -ldflags "-X main.version=$(VERSION)"
 
 serve: $(OUTDIR)/claat
-	mkdir -p $(OUTDIR)/deps
-	cd ../; \
-	    bazel build :bundle; \
-	    mv -f bazel-genfiles/bundle.zip claat/$(OUTDIRNAME)/deps
-	unzip -o $(OUTDIR)/deps/bundle.zip -d $(OUTDIR)/deps/codelab-elements
 	cd bin; ./claat serve
 
 release: $(RELEASES)
