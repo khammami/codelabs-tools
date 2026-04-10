@@ -10,21 +10,19 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.21'
-
-    - name: Set up node
+    - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
 
+    - name: Install dependencies
+      working-directory: codelab-elements
+      run: npm install
+
     - name: Build
-      run: |
-        npm install
-        npm run build
+      working-directory: codelab-elements
+      run: npm run build
