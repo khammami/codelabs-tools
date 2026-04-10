@@ -17,7 +17,7 @@
 
 'use strict';
 
-const {execSync} = require('child_process');
+const {execFileSync} = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -30,7 +30,12 @@ const closureLibDir = path.join(
 const shimsDir = path.join(__dirname, '..', 'shims');
 
 /**
- * Common Closure Compiler flags matching the original Bazel build configuration.
+ * Common Closure Compiler flags.
+ *
+ * Uses SIMPLE compilation (instead of the original ADVANCED) because the
+ * pre-compiled Soy template shims and safevalues shim are not annotated
+ * for ADVANCED optimizations. Migrating to ES modules + tree-shaking via
+ * Rollup/esbuild is planned as a follow-up to restore smaller bundles.
  */
 const commonFlags = [
   '--compilation_level=SIMPLE',
@@ -65,15 +70,15 @@ function compileJS(config) {
       (s) => '--js=' + path.join(__dirname, '..', s));
   const entryFlags = config.entryPoints.map(
       (ep) => '--entry_point=' + ep);
-  const cmd = [
-    'node', compilerPath,
+  const args = [
+    compilerPath,
     ...commonFlags,
     ...entryFlags,
     ...srcs,
     '--js_output_file=' + path.join(distDir, config.outputFile),
-  ].join(' ');
+  ];
 
-  execSync(cmd, {stdio: 'inherit', cwd: path.join(__dirname, '..')});
+  execFileSync('node', args, {stdio: 'inherit', cwd: path.join(__dirname, '..')});
 }
 
 // Build codelab-elements.js: analytics + codelab + about + step + survey

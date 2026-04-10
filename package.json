@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "cd codelab-elements && npm run clean",
-    "build": "cd codelab-elements && npm install && npm run build",
+    "install:elements": "cd codelab-elements && npm install",
+    "build": "cd codelab-elements && npm run build",
     "build:js": "cd codelab-elements && npm run build:js",
     "build:css": "cd codelab-elements && npm run build:css"
   },
