@@ -1,0 +1,28 @@
+name: Build codelab elements
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      working-directory: codelab-elements
+      run: npm install
+
+    - name: Build
+      working-directory: codelab-elements
+      run: npm run build
